@@ -8,6 +8,7 @@ readme = "README.md"
 homepage = "https://github.com/mmatamm/parseIEX"
 repository = "https://github.com/mmatamm/parseIEX.git"
 keywords = ["IEX"]
+
 [tool.poetry.dependencies]
 python = "^3.10"
 
