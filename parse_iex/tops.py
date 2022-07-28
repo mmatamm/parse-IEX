@@ -1,6 +1,11 @@
 from datetime import datetime
 import struct
 
+"""
+The supported TOPS versions
+"""
+SUPPORTED_VERSIONS = ['1.5', '1.6']
+
 class QuoteUpdate:
     """
     A top-quotes update message
