@@ -43,6 +43,9 @@ class QuoteUpdate:
         self.ask_price = ask_price
         self.ask_size = ask_size
 
+    def __str__(self):
+        return f'best bid: {self.bid_size} {self.symbol} shares for {self.bid_price} USD; best ask: {self.ask_size} {self.symbol} shares for {self.ask_price} USD @ {self.time}'
+
 class TradeReport:
     """
     A trade report
@@ -70,6 +73,9 @@ class TradeReport:
         self.time = time
         self.price = price
         self.size = size
+    
+    def __str__(self):
+        return f'trade: {self.size} {self.symbol} shares for {self.price} USD @ {self.time}'
 
 def decode_message(contents: bytes) -> typing.Union[QuoteUpdate,TradeReport]:
     """
