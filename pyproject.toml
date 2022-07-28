@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "parse-IEX"
-version = "0.1.0"
+version = "0.1.1"
 description = "Parse IEX market data streams"
 license = "BSD-2-Clause"
 authors = ["Amit Goren"]
