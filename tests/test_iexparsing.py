@@ -1,4 +1,4 @@
-from parseiex import __version__
+from iexparsing import __version__
 
 def test_version():
     assert __version__ == '0.2.1'

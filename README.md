@@ -1,4 +1,4 @@
-# Parseiex
+# iexparsing
 A collection of parsers for [IEX](https://exchange.iex.io/).
 
 Use the parsers to gather relevant quotes and trades information. 
@@ -8,7 +8,7 @@ Currently, only IEX-TP and TOPS parsing is supported.
 ## IEX-TP Parsing Example
 
 ```py
-from parseiex import iextp
+from iexparsing import iextp
 
 session = iextp.Session()
 
@@ -25,7 +25,7 @@ You can then pass `outbound_segment.messages` to a messages-protocol parser, e.g
 ## TOPS Parsing Example
 
 ```py
-from parseiex import tops
+from iexparsing import tops
 
 session = tops.Session()
     

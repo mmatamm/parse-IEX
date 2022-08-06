@@ -2,7 +2,7 @@ import pytest
 
 from datetime import datetime
 
-from parseiex import iextp
+from iexparsing import iextp
 
 def test_outbound_segment_str():
     outbound_segment = iextp.OutboundSegment([b'Message 1', b'Message 2'], 0xFFFF)

@@ -2,7 +2,7 @@ import pytest
 
 from datetime import datetime
 
-from parseiex import tops
+from iexparsing import tops
 
 def test_quote_update_str():
     quote_update = tops.QuoteUpdate('ZIEXT', datetime(2016, 8, 23, 19, 30, 32, 572716), 99.05, 9700, 99.07, 1000)
