@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "parse_iex"
+name = "parseiex"
 version = "0.2.0"
 description = "Parse IEX market data streams"
 license = "BSD-2-Clause"
 authors = ["Amit Goren"]
 readme = "README.md"
-homepage = "https://github.com/mmatamm/parse-IEX"
-repository = "https://github.com/mmatamm/parse-IEX.git"
+homepage = "https://github.com/mmatamm/parseiex"
+repository = "https://github.com/mmatamm/parseiex.git"
 keywords = ["IEX"]
 
 [tool.poetry.dependencies]
