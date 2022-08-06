@@ -32,6 +32,9 @@ class OutboundSegment:
 		self.messages_protocol_id = messages_protocol_id
 		self.past = past
 
+	def __str__(self) -> str:
+		return f'IEX-TP outbound segment: {self.messages}'
+
 class Session:
 	"""
 	An IEX-TP packets parser

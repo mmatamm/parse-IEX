@@ -7,7 +7,7 @@ from parseiex import tops
 def test_quote_update_str():
     quote_update = tops.QuoteUpdate('ZIEXT', datetime(2016, 8, 23, 19, 30, 32, 572716), 99.05, 9700, 99.07, 1000)
 
-    assert str(quote_update) == 'best bid: 9700 ZIEXT shares for 99.05 USD; best ask: 1000 ZIEXT shares for 99.07 USD @ 2016-08-23 19:30:32.572716'
+    assert str(quote_update) == 'best bid: 9700 ZIEXT shares for 99.05 USD; best ask: 1000 ones for 99.07 USD @ 2016-08-23 19:30:32.572716'
 
 def test_trade_report_str():
     trade_report = tops.TradeReport('ZIEXT', datetime(2016, 8, 23, 19, 31, 23, 662975), 99.05, 100)
