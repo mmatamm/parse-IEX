@@ -1,4 +1,5 @@
 from datetime import datetime
+from deprecation import deprecated
 import struct
 import typing
 
@@ -6,6 +7,11 @@ import typing
 The supported TOPS versions
 """
 SUPPORTED_VERSIONS = ['1.5', '1.6']
+
+"""
+The message protocol id. for IEX-TP
+"""
+MESSAGE_PROTOCOL_ID = 0x8003
 
 class QuoteUpdate:
     """
@@ -77,43 +83,54 @@ class TradeReport:
     def __str__(self):
         return f'trade: {self.size} {self.symbol} shares for {self.price} USD @ {self.time}'
 
-def decode_message(contents: bytes) -> typing.Union[QuoteUpdate,TradeReport]:
+class Session:
     """
-    Decodes a TOPS message
+    An TOPS messages parser
 
-    Parameters
-    ----------
-    contents : bytes
-        the raw message
+    A session tracks the validity and order of multiple messages.
     """
-    match contents[0]:
-        case 0x51:
-            # Seperate the buffer to fields
-            data = struct.unpack('<bBQ8sIQQI', contents)
 
-            symbol = data[3].rstrip().decode()
-            time = datetime.utcfromtimestamp(data[2] / 1E9)
-            # The price is stored as a fixed-point no.
-            bid_price, ask_price = data[5] / 1E4, data[6] / 1E4
-            bid_size, ask_size = data[4], data[7]
+    def decode_message(self, contents: bytes) -> typing.Union[QuoteUpdate,TradeReport]:
+        """
+        Decodes a TOPS message
 
-            return QuoteUpdate(symbol, time, bid_price, bid_size, ask_price, ask_size)
-        
-        case 0x54:
-            # Seperate the buffer to fields
-            data = struct.unpack('<bBQ8sIQq', contents)
+        Parameters
+        ----------
+        contents : bytes
+            the raw message, e.g., an IEX-TP message
+        """
+        match contents[0]:
+            case 0x51:
+                # Seperate the buffer to fields.
+                data = struct.unpack('<bBq8sIQQI', contents)
+
+                symbol = data[3].rstrip().decode()
+                time = datetime.utcfromtimestamp(data[2] / 1E9)
+                # The price is stored as a fixed-point no.
+                bid_price, ask_price = data[5] / 1E4, data[6] / 1E4
+                bid_size, ask_size = data[4], data[7]
+
+                return QuoteUpdate(symbol, time, bid_price, bid_size, ask_price, ask_size)
             
-            symbol = data[3].rstrip().decode()
-            time = datetime.utcfromtimestamp(data[2] / 1E9)
-            # The price is stored as a fixed-point no.
-            price = data[5] / 1E4
-            size = data[4]
+            case 0x54:
+                # Seperate the buffer to fields.
+                data = struct.unpack('<bBq8sIQq', contents)
+                
+                symbol = data[3].rstrip().decode()
+                time = datetime.utcfromtimestamp(data[2] / 1E9)
+                # The price is stored as a fixed-point no.
+                price = data[5] / 1E4
+                size = data[4]
 
-            return TradeReport(symbol, time, price, size)
-        
-        case 0x53 | 0x44 | 0x48 | 0x49 | 0x4F | 0x50 | 0x58 | 0x42 | 0x41:
-            pass
-        
-        case messageType:
-            raise ValueError(f'Unknown message type \'{messageType}\', is the TOPS versions supported?')
+                return TradeReport(symbol, time, price, size)
+            
+            case 0x53 | 0x44 | 0x48 | 0x49 | 0x4F | 0x50 | 0x58 | 0x42 | 0x41:
+                pass
+            
+            case message_type:
+                raise ValueError(f'Unknown message type: {hex(message_type)}, is the TOPS versions supported?')
 
+@deprecated(deprecated_in='0.2.0', removed_in='0.3.0', details='Use Session.decode_message instead.')
+def decode_message(contents: bytes) -> typing.Union[QuoteUpdate,TradeReport]:
+    sess = Session()
+    return sess.decode_message(contents)

@@ -11,6 +11,7 @@ keywords = ["IEX"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+deprecation = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
