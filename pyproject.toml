@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "parse-iex"
+name = "parse_iex"
 version = "0.2.0"
 description = "Parse IEX market data streams"
 license = "BSD-2-Clause"
