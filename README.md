@@ -1,3 +1,5 @@
+> :warning: **Deprecated**: Use https://github.com/mmatamm/iex-parser-rs instead.
+
 # iexparsing
 A collection of parsers for [IEX](https://exchange.iex.io/).
 
